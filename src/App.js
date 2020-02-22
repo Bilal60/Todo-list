@@ -20,9 +20,8 @@ class App extends React.Component{
   render(){
 
     //filter all incomplete tasks
-    const incompleteTasks = this.state.tasks.filter(task => task.completed === false)
-
-    console.log(incompleteTasks);
+    const incompletedTasks = this.state.tasks.filter(task => !task.completed);
+    const completedTasks = this.state.tasks.filter(task => task.completed);
 
     return(
       <div className="App">
@@ -36,10 +35,19 @@ class App extends React.Component{
           </ul>
         </div>
 
-        <div className="incompleteTaskList">
-          <p>Incomplete task list</p>
+        <div className="incompletedTasks">
+          <p>Incompleted tasks</p>
           <ul>
-            {incompleteTasks.map( task => 
+            {incompletedTasks.map( task => 
+              <Task key={task.id} task={task} />
+            )}
+          </ul>
+        </div>
+
+        <div className="completedTasks">
+          <p>Completed tasks</p>
+          <ul>
+            {completedTasks.map( task => 
               <Task key={task.id} task={task} />
             )}
           </ul>
