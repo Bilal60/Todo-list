@@ -19,19 +19,32 @@ class App extends React.Component{
 
   render(){
 
+    //filter all incomplete tasks
+    const incompleteTasks = this.state.tasks.filter(task => task.completed === false)
+
+    console.log(incompleteTasks);
+
     return(
       <div className="App">
-        <p>Task list</p>
+
         <div className="taskList">
+          <p>Task list</p>
           <ul>
             {this.state.tasks.map( task => 
               <Task key={task.id} task={task} />
             )}
           </ul>
         </div>
-        <div className="addTask">
 
+        <div className="incompleteTaskList">
+          <p>Incomplete task list</p>
+          <ul>
+            {incompleteTasks.map( task => 
+              <Task key={task.id} task={task} />
+            )}
+          </ul>
         </div>
+
       </div>
     )
 
