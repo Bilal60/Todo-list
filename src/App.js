@@ -14,6 +14,7 @@ class App extends React.Component{
 
     super(props);
     this.state = {
+      newTask: '',
       currentRoute: ROUTES.home,
       tasks: [
         {id: "1", description: "do homework", completed: true},
@@ -25,7 +26,7 @@ class App extends React.Component{
   }
 
   componentDidMount(){
-    window.onhashchange = (e) =>{
+    window.onhashchange = () =>{
       this.setState({currentRoute: window.location.hash})
     }
   }
@@ -49,6 +50,27 @@ class App extends React.Component{
     }
   }
 
+  handleChange(e){
+    this.setState({newTask: e.target.value});
+  }
+
+  handleSubmit(e){
+
+    e.preventDefault();
+    
+    const id = new Date().getTime();
+    const taskDescription = this.state.newTask;
+    const completed = false;
+
+    const task = {id: id, description: taskDescription, completed: completed}
+
+    const tasksCopy = this.state.tasks.slice();
+    tasksCopy.push(task);
+
+    this.setState({tasks: tasksCopy})
+
+  }
+
   render(){
 
     return(
@@ -59,6 +81,12 @@ class App extends React.Component{
           <button><a href={ROUTES.incompletedTasks}>Incompleted tasks</a></button>
           <button><a href={ROUTES.completedTasks}>Completed tasks</a></button>
         </div>
+
+        <form onSubmit={(e)=>this.handleSubmit(e)}>
+          <input type="text" placeholder="My task's description" onChange={(e)=>this.handleChange(e)} value={this.state.newTask}/>
+          <input type="submit" value="Add my task !"/>
+        </form>
+
         {this.todolistRouter()}
 
       </div>
