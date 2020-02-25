@@ -57,7 +57,7 @@ class App extends React.Component{
   handleSubmit(e){
 
     e.preventDefault();
-    
+
     const id = new Date().getTime();
     const taskDescription = this.state.newTask;
     const completed = false;
@@ -67,7 +67,7 @@ class App extends React.Component{
     const tasksCopy = this.state.tasks.slice();
     tasksCopy.push(task);
 
-    this.setState({tasks: tasksCopy})
+    this.setState({tasks: tasksCopy, newTask: ''})
 
   }
 
